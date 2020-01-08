@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                #{p['pogled1.naslov']}
+            </ui:define>
+            <ui:define name="top">
+                #{p['pogled1.top']}
+            </ui:define>
+            <ui:define name="content">
+                <h:outputLink value="faces/index.xhtml">#{p['index.naslov']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled1.xhtml" >#{p['index.pogled1']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled2.xhtml" >#{p['index.pogled2']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled3.xhtml" >#{p['index.pogled3']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled4.xhtml" >#{p['index.pogled4']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled5.xhtml" >#{p['index.pogled5']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled6.xhtml" >#{p['index.pogled6']}</h:outputLink><br/>
+                <h:outputLabel value="#{p['pogled1.registracija']}" class="naslovi" />
+                <h:form id="formRegistracija">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel id="forKorisnickoIme" value="#{p['pogled1.reg.korime']} "/>
+                        <h:inputText id="korisnickoIme" value="#{registracijaKorisnika.korisnickoIme}"/>
+                        <h:outputLabel id="forLozinka" value="#{p['pogled1.reg.lozinka']} "/>
+                        <h:inputText id="lozinka" value="#{registracijaKorisnika.lozinka}"/>
+                        <h:outputLabel id="forLozinkaPonovno" value="#{p['pogled1.reg.ponlozinka']} "/>
+                        <h:inputText id="lozinkaPonovno" value="#{registracijaKorisnika.ponovnaLozinka}"/>
+                        <h:outputLabel id="forIme" value="#{p['pogled1.reg.ime']} "/>
+                        <h:inputText id="ime" value="#{registracijaKorisnika.ime}"/>
+                        <h:outputLabel id="forPrezime" value="#{p['pogled1.reg.prezime']} "/>
+                        <h:inputText id="prezime" value="#{registracijaKorisnika.prezime}"/>
+                        <h:outputLabel id="forEmail" value="#{p['pogled1.reg.mail']} "/>
+                        <h:inputText id="email" value="#{registracijaKorisnika.email}"/>
+                    </h:panelGrid>
+                    <h:commandButton value="#{p['pogled1.reg.regse']}" action="#{registracijaKorisnika.registriraj()}">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:outputLabel value="#{p['pogled1.reg.poruka']} #{registracijaKorisnika.poruka}"/>
+                </h:form>
+
+                <br/>
+                <h:outputLabel value="#{p['pogled1.prijava']}" class="naslovi" />
+                <h:form id="formPrijava">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel id="forKorisnickoIme" value="#{p['pogled1.reg.korime']} "/>
+                        <h:outputLabel id="forLozinka" value="#{p['pogled1.reg.lozinka']} "/>
+                        <h:inputText id="korisnickoIme" value="#{prijavaKorisnika.korisnickoIme}"/>
+                        <h:inputText id="lozinka" value="#{prijavaKorisnika.lozinka}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:commandButton value="#{p['pogled1.prijavise']}" action="#{prijavaKorisnika.prijava()}">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:outputLabel value="#{p['pogled1.reg.poruka']} #{prijavaKorisnika.poruka}"/>
+                    <p:dataTable class="listaLetova" id="tablicaKorisnika" value="#{prijavaKorisnika.listaKorisnika}" var="korisnik" 
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="#{prijavaKorisnika.brojRedaka}">
+                        <p:column>
+                            <f:facet name="header">ID</f:facet>
+                            <h:outputText value="#{korisnik.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">#{p['pogled1.reg.ime']}</f:facet>
+                            <h:outputText value="#{korisnik.ime}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">#{p['pogled1.reg.prezime']}</f:facet>
+                            <h:outputText value="#{korisnik.prezime}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">#{p['pogled1.reg.korime']}</f:facet>
+                            <h:outputText value="#{korisnik.korisnickoIme}"/>
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">#{p['pogled1.reg.mail']}</f:facet>
+                            <h:outputText value="#{korisnik.email}"/>
+                        </p:column> 
+                    </p:dataTable>
+                    <h:outputLabel value="#{p['pogled1.reg.poruka']} #{prijavaKorisnika.poruka}"/>
+                </h:form> 
+
+                <br/>
+                <h:outputLabel value="#{p['pogled1.nas.azuriraj']}" class="naslovi" />
+                <h:form id="azuriranje">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel id="forLozinka" value="#{p['pogled1.reg.lozinka']} "/>
+                        <h:inputText id="lozinka" value="#{azurirajKorisnika.lozinka}"/>
+                        <h:outputLabel id="forLozinkaPonovno" value="#{p['pogled1.reg.ponlozinka']} "/>
+                        <h:inputText id="lozinkaPonovno" value="#{azurirajKorisnika.ponovnaLozinka}"/>
+                        <h:outputLabel id="forIme" value="#{p['pogled1.reg.ime']} "/>
+                        <h:inputText id="ime" value="#{azurirajKorisnika.ime}"/>
+                        <h:outputLabel id="forPrezime" value="#{p['pogled1.reg.prezime']} "/>
+                        <h:inputText id="prezime" value="#{azurirajKorisnika.prezime}"/>
+                        <h:outputLabel id="forEmail" value="#{p['pogled1.reg.mail']} "/>
+                        <h:inputText id="email" value="#{azurirajKorisnika.email}"/>
+                    </h:panelGrid>
+                    <h:commandButton value="#{p['pogled1.azuriraj']}" action="#{azurirajKorisnika.azuriraj()}">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:outputLabel value="#{p['pogled1.reg.poruka']} #{azurirajKorisnika.poruka}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

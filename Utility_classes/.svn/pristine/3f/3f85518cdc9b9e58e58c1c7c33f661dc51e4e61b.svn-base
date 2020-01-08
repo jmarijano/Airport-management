@@ -1,0 +1,34 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.foi.nwtis.jmarijano.sucelja;
+
+import java.util.List;
+import org.foi.nwtis.rest.podaci.AvionLeti;
+
+/**
+ *
+ * @author LiterallyCan't
+ */
+public interface AirplanesService extends CRUDService<AvionLeti> {
+
+    List<AvionLeti> dajAvionePoletjeleSAerodroma(String icao, int odVremena, int doVremena);
+
+    List<AvionLeti> getByestArrivalAirport(String icao);
+
+    int getCountByIcaoAndLastSeen(String icao, int lastSeen);
+
+    int provjeriAvionPoletioSAerodroma(String icao24, String icao, int odVremena, int doVremena);
+
+    int brojAvionaDepartureAerodrom(String aerodrom, int odVremena, int doVremena);
+
+    List<AvionLeti> avioniZaTablicu(String aerodrom, int stranica, int brojRedaka, int odVremena, int doVremena);
+
+    List<AvionLeti> dajPosljednjiNAvionaAerodroma(String ident, int brojAviona);
+
+    List<String> dajNaziveAerodromaAviona(String icao24, int odVremena, int doVremena);
+
+    public List<AvionLeti> dajAerodromeAviona(String icao24, int odVremena, int doVremena);
+}

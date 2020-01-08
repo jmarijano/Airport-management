@@ -1,0 +1,6 @@
+{
+    "port": "8034",
+    "adresa": "localhost",
+	"datotekaPosluzitelja":"serijalizacijaPosluzitelj.json",
+	"datotekaMQTT":"serijalizacijaMQTT.json"
+}

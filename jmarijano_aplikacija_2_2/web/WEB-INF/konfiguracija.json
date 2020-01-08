@@ -1,0 +1,18 @@
+{
+    "mqtt.port": "61613",
+    "mqtt.host": "nwtis.foi.hr",
+    "mqtt.user": "jmarijano",
+    "mqtt.password": "pvobvm4801",
+    "mqtt.destination": "/NWTiS/jmarijano",
+	"port":"8034",
+	"host":"localhost",
+	"dnevnikRada.brojLinija":"5",
+	"korisnici.brojLinija":"5",
+	"aerodromi.brojLinija":"5",
+	"avioni.brojLinija":"5",
+	"korisnik":"Josip Marijanović",
+	"aerodromi.comboBox":"7",
+	"udaljenost.prviComboBox":"5",
+	"udaljenost.drugiComboBox":"5",
+	"mqtt.brojLinija":"6"
+}

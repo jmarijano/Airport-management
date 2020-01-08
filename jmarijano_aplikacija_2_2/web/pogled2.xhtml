@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+               #{p['pogled2.naslov']}
+            </ui:define>
+            <ui:define name="top">
+                #{p['pogled2.top']}
+            </ui:define>
+            <ui:define name="content">
+                <h:outputLink value="faces/index.xhtml">#{p['index.naslov']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled1.xhtml" >#{p['index.pogled1']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled2.xhtml" >#{p['index.pogled2']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled3.xhtml" >#{p['index.pogled3']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled4.xhtml" >#{p['index.pogled4']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled5.xhtml" >#{p['index.pogled5']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled6.xhtml" >#{p['index.pogled6']}</h:outputLink><br/>
+                <h:form id="formPregledAerodroma">
+                    <h:outputLabel value="#{p['pogled2.nas.pregae']}" class="naslovi" />
+                    <p:dataTable class="listaLetova" id="tablicaAerodroma" value="#{pregledAerodroma.listaAerodroma}" 
+                                 var="aerodrom"  paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="#{pregledAerodroma.brojRedaka}">
+                        <p:column>
+                            <f:facet name="header">#{p['pogled2.ident']}</f:facet>
+                            <h:outputText value="#{aerodrom.icao}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">#{p['pogled2.drzava']}</f:facet>
+                            <h:outputText value="#{aerodrom.drzava}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">#{p['pogled2.naziAe']}</f:facet>
+                            <h:outputText value="#{aerodrom.naziv}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">#{p['pogled2.lat']}</f:facet>
+                            <h:outputText value="#{aerodrom.lokacija.latitude}"/>
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">#{p['pogled2.long']}</f:facet>
+                            <h:outputText value="#{aerodrom.lokacija.longitude}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">#{p['pogled2.akcija']}</f:facet>
+                            <h:commandButton value="Izbriši" action="#{pregledAerodroma.obrisi(aerodrom.icao)}">
+                                <f:ajax render="@form" execute="@form"/>
+                            </h:commandButton>
+                        </p:column> 
+                    </p:dataTable>
+                    <h:outputLabel value="#{p['pogled1.reg.poruka']} #{pregledAerodroma.poruka}"/>
+
+                    <br/>
+                    <h:outputLabel value="#{p['pogled2.butmeteo']}" class="naslovi" />
+                    <h:panelGrid columns="2">
+                        <h:outputLabel id="forKorisnickoIme" value="#{p['pogled2.ident']}: "/>
+                        <h:inputText id="korisnickoIme" value="#{pregledMeteoroloskihPodataka.odabraniAerodrom}"/>
+                        <h:panelGroup>
+                            <h:outputLabel value="#{p['pogled2.temp']} "/>
+                            <h:outputText value="#{pregledMeteoroloskihPodataka.meteoPodaci.temperatureValue}"/>
+                            <br/>
+                            <h:outputLabel value="#{p['pogled2.tlak']} "/>
+                            <h:outputText value="#{pregledMeteoroloskihPodataka.meteoPodaci.pressureValue}"/>
+                            <br/>
+                            <h:outputLabel value="#{p['pogled2.vlaga']} "/>
+                            <h:outputText value="#{pregledMeteoroloskihPodataka.meteoPodaci.humidityValue}"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <h:outputLabel value="#{p['pogled1.reg.poruka']} #{pregledMeteoroloskihPodataka.poruka}"/>
+                    <h:commandButton value="#{p['pogled2.preuzmiMeteoPodatke']}" action="#{pregledMeteoroloskihPodataka.prikaziMeteoroloskePodatke()}">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandButton>
+
+                    <br/>
+                    <h:outputLabel value="#{p['pogled2.nas.dodaj']}" class="naslovi" />
+                    <h:panelGrid columns="2">
+                        <h:outputLabel id="zaDodajlabel" value="#{p['pogled2.ident']}: "/>
+                        <h:inputText id="zaDodaj" value="#{dodajAerodrom.ident}"/>
+                    </h:panelGrid>
+                    <h:commandButton value="#{p['pogled2.gudodaj']}" action="#{dodajAerodrom.dodaj()}">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandButton>
+                    <h:outputLabel value="#{p['pogled1.reg.poruka']} #{dodajAerodrom.poruka}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

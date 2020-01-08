@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                Pregled statusa poslužitelja
+            </ui:define>
+            <ui:define name="top">
+                Pregled statusa poslužitelja
+            </ui:define>
+            <ui:define name="content">
+                <h:outputLink value="faces/index.xhtml">Početna stranica</h:outputLink><br/>
+                <h:outputLink value="faces/pogled3.xhtml" >Slanje komandi</h:outputLink><br/>
+                <h:outputLink value="faces/pogled2.xhtml" >Pregled MQTT poruka</h:outputLink><br/>
+                <h:outputLink value="faces/pogled1.xhtml" >Pregled poslužiteljskih poruka</h:outputLink><br/>
+                <h:form >
+                    <h:commandButton action="#{pregledPosluzitelja.posaljiKorisnika()}" value="Pošalji korisničko ime i lozinku">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledPosluzitelja.posaljiPauzu()}" value="Pošalji pauzu">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledPosluzitelja.posaljiKreni()}" value="Pošalji kreni">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledPosluzitelja.posaljiPasivno()}" value="Pošalji pasivno">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledPosluzitelja.posaljiAktivno()}" value="Pošalji aktivno">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledPosluzitelja.posaljiStani()}" value="Pošalji stani">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledPosluzitelja.posaljiStanje()}" value="Pošalji stanje">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:outputLabel value="Odgovor: #{pregledPosluzitelja.poruka}"/>
+                </h:form>
+                <h:form>
+                    <h:commandButton action="#{pregledGrupe.posaljiKorisnika()}" value="Pošalji korisnika">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledGrupe.posaljiDodaj()}" value="Pošalji dodaj">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledGrupe.posaljiPrekid()}" value="Pošalji prekid">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledGrupe.posaljiKreni()}" value="Pošalji kreni">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledGrupe.posaljiPauza()}" value="Pošalji pauza">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton action="#{pregledGrupe.posaljiStanje()}" value="Pošalji stanje">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:outputLabel value="Odgovor: #{pregledGrupe.poruka}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

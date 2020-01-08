@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                #{p['pogled4.naslov']}
+            </ui:define>
+            <ui:define name="top">
+                #{p['pogled4.top']}
+            </ui:define>
+            <ui:define name="content">
+                <h:outputLink value="faces/index.xhtml">#{p['index.naslov']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled1.xhtml" >#{p['index.pogled1']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled2.xhtml" >#{p['index.pogled2']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled3.xhtml" >#{p['index.pogled3']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled4.xhtml" >#{p['index.pogled4']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled5.xhtml" >#{p['index.pogled5']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled6.xhtml" >#{p['index.pogled6']}</h:outputLink><br/>
+                <h:outputLabel value=" #{p['pogled2.nas.pregae']}" class="naslovi" />
+                <h:form id="formPregledAerodroma">
+                    <p:dataTable class="listaLetova" id="tablicaAerodroma" value="#{pregledAerodroma.listaAerodroma}" var="aerodrom" 
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="#{pregledAerodroma.brojRedaka}">
+                        <p:column>
+                            <f:facet name="header">#{p['pogled2.ident']}</f:facet>
+                            <h:outputText value="#{aerodrom.icao}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header"> #{p['pogled2.drzava']}</f:facet>
+                            <h:outputText value="#{aerodrom.drzava}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header"> #{p['pogled2.naziAe']}</f:facet>
+                            <h:outputText value="#{aerodrom.naziv}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header"> #{p['pogled2.lat']}</f:facet>
+                            <h:outputText value="#{aerodrom.lokacija.latitude}"/>
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header"> #{p['pogled2.long']}</f:facet>
+                            <h:outputText value="#{aerodrom.lokacija.longitude}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Akcija</f:facet>
+                            <h:commandButton value="#{p['pogled3.izbrisi']}" action="#{pregledAerodroma.obrisi(aerodrom.icao)}">
+                            </h:commandButton>
+                        </p:column> 
+                    </p:dataTable>
+
+                    <br/> 
+                    <h:outputLabel value="#{p['pogled4.nas.udaljenost']}" class="naslovi" />
+                    <h:panelGrid columns="2">
+                        <h:panelGroup>
+                            <h:selectOneListbox id="odabraniAerodrom1" value="#{pregledUdaljenostiAerodroma.identPrvi}" size="7" >
+                                <f:selectItems value="#{pregledAerodroma.listaAerodroma}"
+                                               var="a"
+                                               itemLabel="#{a.icao},  #{a.naziv}"
+                                               itemValue="#{a.icao}"/>
+                                <f:ajax render="odabraniAerodrom" execute="@this"/>
+                            </h:selectOneListbox>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:selectOneListbox id="odabraniAerodrom2" value="#{pregledUdaljenostiAerodroma.identDrugi}" size="7" >
+                                <f:selectItems value="#{pregledAerodroma.listaAerodroma}"
+                                               var="a"
+                                               itemLabel="#{a.icao},  #{a.naziv}"
+                                               itemValue="#{a.icao}"/>
+                                <f:ajax render="odabraniAerodrom" execute="@this"/>
+                            </h:selectOneListbox>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <h:commandButton action="#{pregledUdaljenostiAerodroma.izracunaj(identPrvi, identDrugi)}" value="#{p['pogled4.izracudalje']}">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandButton>
+                    <h:outputLabel value="#{p['pogled4.udalje']} #{pregledUdaljenostiAerodroma.udaljenost}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

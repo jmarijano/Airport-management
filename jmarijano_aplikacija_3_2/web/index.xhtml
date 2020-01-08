@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                Prijava 
+            </ui:define>
+            <ui:define name="top">
+                Prijava 
+            </ui:define>
+            <ui:define name="content">
+                <h:form id="formPrijava">
+                    <h:outputLink value="faces/index.xhtml">Početna stranica</h:outputLink><br/>
+                    <h:outputLink value="faces/pogled3.xhtml" >Slanje komandi</h:outputLink><br/>
+                    <h:outputLink value="faces/pogled2.xhtml" >Pregled MQTT poruka</h:outputLink><br/>
+                    <h:outputLink value="faces/pogled1.xhtml" >Pregled poslužiteljskih poruka</h:outputLink><br/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel id="forKorisnickoIme" value="Korisničko ime: "/>
+                        <h:outputLabel id="forLozinka" value="Lozinka: "/>
+                        <h:inputText id="korisnickoIme" value="#{prijavaKorisnika.korisnickoIme}"/>
+                        <h:inputText id="lozinka" value="#{prijavaKorisnika.lozinka}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <h:commandButton value="Prijavite se" action="#{prijavaKorisnika.prijava()}">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:outputLabel value="Poruka: #{prijavaKorisnika.poruka}"/>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                Pregled poslužiteljski JMS poruka 
+            </ui:define>
+            <ui:define name="top">
+                Pregled poslužiteljski JMS poruka 
+            </ui:define>
+            <ui:define name="content">
+                <h:outputLink value="faces/index.xhtml">Početna stranica</h:outputLink><br/>
+                <h:outputLink value="faces/pogled3.xhtml" >Slanje komandi</h:outputLink><br/>
+                <h:outputLink value="faces/pogled2.xhtml" >Pregled MQTT poruka</h:outputLink><br/>
+                <h:outputLink value="faces/pogled1.xhtml" >Pregled poslužiteljskih poruka</h:outputLink><br/>
+                <h:form id="form">
+                    <p:dataTable class="listaLetova" id="jmsPosluzitelj" value="#{pregledJMSPorukaPosluzitelj.listaPoruka}" var="jmsPoruka" 
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="5">
+                        <p:column>
+                            <f:facet name="header">ID</f:facet>
+                            <h:outputText value="#{jmsPoruka.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Komanda</f:facet>
+                            <h:outputText value="#{jmsPoruka.komanda}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Vrijeme</f:facet>
+                            <h:outputText value="#{jmsPoruka.vrijeme}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Akcija</f:facet>
+                            <h:commandButton value="Obriši" action="#{pregledJMSPorukaPosluzitelj.obrisi(jmsPoruka)}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <h:outputLabel value="Poruka: #{pregledJMSPorukaPosluzitelj.poruka}"/>
+                    <h:commandButton id="osvjezi" style="display: none" action="#{pregledJMSPorukaPosluzitelj.init()}">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandButton>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

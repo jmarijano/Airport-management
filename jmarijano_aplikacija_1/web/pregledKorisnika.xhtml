@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                Pregled korisnika
+            </ui:define>
+            <ui:define name="top">
+                Pregled korisnika
+            </ui:define>
+            <ui:define name="content">
+                <h:outputLink value="faces/index.xhtml">Početna stranica</h:outputLink><br/>
+                <h:outputLink value="faces/pregledDnevnikaRada.xhtml" >Pregled dnevnika rada</h:outputLink><br/>
+                <h:outputLink value="faces/pregledKorisnika.xhtml" >Pregled korisnika</h:outputLink><br/>
+                <h:form>
+                    <h:dataTable class="listaLetova" id="tablicaKorisnika" value="#{pregledKorisnika.listaKorisnika}" var="korisnik" >
+                        <h:column>
+                            <f:facet name="header">ID</f:facet>
+                            <h:outputText value="#{korisnik.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Ime</f:facet>
+                            <h:outputText value="#{korisnik.ime}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Prezime</f:facet>
+                            <h:outputText value="#{korisnik.prezime}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Korisničko ime</f:facet>
+                            <h:outputText value="#{korisnik.korisnickoIme}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">E - mail adresa</f:facet>
+                            <h:outputText value="#{korisnik.email}"/>
+                        </h:column> 
+                    </h:dataTable>
+                    <h:panelGrid columns="2">
+                        <h:commandButton value="Prethodna" action="#{pregledKorisnika.smanjiStranicu()}">
+                            <f:ajax execute="stranica" render="tablicaKorisnika"  />
+                        </h:commandButton>
+                        <h:commandButton value="Sljedeća" action="#{pregledKorisnika.povecajStranicu()}">
+                            <f:ajax execute="stranica" render="tablicaKorisnika" />
+                        </h:commandButton>
+                    </h:panelGrid>
+                    <h:outputLabel id="brojRedaka" value="Ukupan broj korisnika: #{pregledKorisnika.ukupanBrojZapisa}">
+                    </h:outputLabel>
+                </h:form>
+
+            </ui:define>
+            <ui:define name="error">
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

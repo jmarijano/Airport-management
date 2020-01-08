@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                #{p['index.naslov']}
+            </ui:define>
+            <ui:define name="top">
+                #{p['index.top']}
+            </ui:define>
+            <ui:define name="content">
+                <h:outputLink value="faces/index.xhtml">#{p['index.naslov']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled1.xhtml" >#{p['index.pogled1']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled2.xhtml" >#{p['index.pogled2']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled3.xhtml" >#{p['index.pogled3']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled4.xhtml" >#{p['index.pogled4']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled5.xhtml" >#{p['index.pogled5']}</h:outputLink><br/>
+                <h:outputLink value="faces/pogled6.xhtml" >#{p['index.pogled6']}</h:outputLink><br/>
+                <br/>
+                <h:form>
+                    <h:selectOneRadio value="#{lokalizacija.jezik}">
+                        <f:selectItem itemValue="hr" itemLabel="#{p['index.jezik.hr']}"/> 
+                        <f:selectItem itemValue="en" itemLabel="#{p['index.jezik.en']}"/> 
+                        <f:selectItem itemValue="de" itemLabel="#{p['index.jezik.de']}"/> 
+                    </h:selectOneRadio>
+                    <h:commandButton value="#{p['index.gumb.odabirJezika']}"
+                                     action="#{lokalizacija.odaberiJezik}"/>
+                    <br/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

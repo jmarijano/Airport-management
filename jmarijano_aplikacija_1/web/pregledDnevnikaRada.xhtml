@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                Pregled dnevnika rada
+            </ui:define>
+            <ui:define name="top">
+                Pregled dnevnika rada
+            </ui:define>
+            <ui:define name="content">
+                <h:outputLink value="faces/index.xhtml">Početna stranica</h:outputLink><br/>
+                <h:outputLink value="faces/pregledDnevnikaRada.xhtml" >Pregled dnevnika rada</h:outputLink><br/>
+                <h:outputLink value="faces/pregledKorisnika.xhtml" >Pregled korisnika</h:outputLink><br/>
+                <h:form>
+                    <h:panelGroup>
+                        <h:outputLabel value="Od vremena(dd.MM.yyyy HH:mm:ss): "/> 
+                        <h:inputText id="odVremena" value="#{pregledDnevnikaRada.odVremena}"/>
+                        <br/>
+                        <h:outputLabel value="Do vremena(dd.MM.yyyy HH:mm:ss): "/> 
+                        <h:inputText id="doVremena" value="#{pregledDnevnikaRada.doVremena}" />
+                    </h:panelGroup>
+                    <h:panelGrid columns="2">
+                        <h:selectOneListbox id="odabraniPutnik" value="#{pregledDnevnikaRada.odabraniRedak}" size="1">
+                            <f:selectItems value="#{pregledDnevnikaRada.listaZahtjeva}"
+                                           var="p"
+                                           itemLabel="#{p}"
+                                           itemValue="#{p}"/>
+                            <f:ajax render="odabraniPutnik" execute="@this"/>
+                        </h:selectOneListbox>
+                    </h:panelGrid>
+                    <p:dataTable class="listaLetova" id="tablicaDnevnik" value="#{pregledDnevnikaRada.listaDnevnik}" var="dnevnik" 
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rows="5">
+                        <p:column>
+                            <f:facet name="header">ID</f:facet>
+                            <h:outputText value="#{dnevnik.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Zahtjev</f:facet>
+                            <h:outputText value="#{dnevnik.zahtjev}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Vrsta zahtjeva</f:facet>
+                            <h:outputText value="#{dnevnik.vrstaZahtjeva}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Dio aplikacije </f:facet>
+                            <h:outputText value="#{dnevnik.dioAplikacije}"/>
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">Vrijeme</f:facet>
+                            <h:outputText value="#{dnevnik.vrijeme}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>            
+            </ui:define>
+            <ui:define name="error">
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
